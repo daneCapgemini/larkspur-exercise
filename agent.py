@@ -125,7 +125,7 @@ def build_tools() -> List[Dict[str, Any]]:                 # ✏️ Build 1, ste
         },
         {
             "name": "search_alternatives",
-            "description": "search for alternative flights for a given PNR,flight_status,  ",
+            "description": "search for alternative flights for a given PNR,flight_status, and date. Returns a list of options with details like flight number, departure time, arrival time, and any additional information relevant to the customer.",
             "input_schema": {
                 "type": "object",
                 "properties": {"pnr": {"type": "string"}},
