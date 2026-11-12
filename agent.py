@@ -10,15 +10,46 @@ Steps and gates:  https://anthropicpartnerbasecamp.bts.com/
 """
 from __future__ import annotations
 from typing import Any, Dict, List
+from pathlib import Path
 from support import (MODEL, SYSTEM_PROMPT, call_local, execute_tool, mcp_client,
                      new_session, next_available_day, record_tool_result,
                      runtime_preamble)
 
+
 MAX_TOOL_CALLS = 8  # Larkspur's own build capped the loop here; then a human takes over.
 
 TONE_ADDENDUM = ""                       # ✏️ Build 4, step 4.1, intelligence goal
-EXTRA_TOOLS: List[Dict[str, Any]] = []   # ✏️ Build 2, step 2.1: schemas for the tools you add
-LOCAL_TOOLS: Dict[str, Any] = {}         # ✏️ Build 2, step 2.1: the functions behind them
+
+EXTRA_TOOLS: List[Dict[str, Any]] = [
+{
+        "name": "fare_rules",
+        "description": (
+            "When a user asks about why they dont get a hotel, this tool will reference Larkspurs Handbook"
+            "only use this tool when the user asks questions about hotels, fare families, what happens when flights are delayed, cancelled or diverted and policies on what you are eligible for"
+            "in those situations and any goodwill policies."
+            "Only use information grounded in the fare_rules content."
+        ),
+    
+    "input_schema": {
+                    "type": "object",
+                    "properties": {
+                        "topic": {
+                            "type": "string",
+                            "description": "The topic to retrieve fare rules for. For example, 'hotel', 'meal', 'ground transportation', 'goodwill', 'fare family', 'delayed flight', 'cancelled flight', 'diverted flight'.",
+                        },                   
+                },
+                "required": ["topic"],
+            },
+    }
+
+]   # ✏️ Build 2, step 2.1: schemas for the tools you add
+
+def fare(topic):
+    fare_rules_text = Path("/Users/amalantony/Desktop/larkspur-exercise/data/americas/fare_rules_excerpt.md").read_text()
+    return fare_rules_text
+
+LOCAL_TOOLS: Dict[str, Any] = {"fare_rules": fare}         # ✏️ Build 2, step 2.1: the functions behind them
+
 
 
 def text_of(response) -> str:
