@@ -127,7 +127,7 @@
       "suite": "fare_rules",
       "hard_gate": false,
       "shape": " rules inquiry for hotel eligibility",
-      "author": "Antony",
+      "author": "Amal Antony",
       "pnr": "L5GH3J",
       "last_name": "Smith",
       "message": "why can i not get a hotel?",
@@ -152,11 +152,61 @@
       "suite": "fare_rules",
       "hard_gate": false,
       "shape": " rules inquiry for meal eligibility",
-      "author": "Antony",
+      "author": "Amal Antony",
       "pnr": "L5GH3J",
       "last_name": "Smith",
       "message": "what are the meal policies for a delayed flight?",
       "expect": "Use the fare_rules tool to provide information about meal eligibility based on the delay. Do not make up any rules or policies.",
+      "graders": [
+        {
+          "type": "rules",
+          "must_call": [
+            "fare_rules"
+          ],
+          "must_not_call": [
+            "issue_voucher"
+          ]
+        },
+        {
+          "type": "judge"
+        }
+      ]
+    },
+    {
+      "id": "team-0103",
+      "suite": "fare_rules",
+      "hard_gate": false,
+      "shape": " rules inquiry for ground transportation eligibility",
+      "author": "Dane Waby",
+      "pnr": "L5GH3J",
+      "last_name": "Smith",
+      "message": "what are the ground transportation policies for a cancelled flight?",
+      "expect": "Use the fare_rules tool to provide information about ground transportation eligibility based on the cancellation. Do not make up any rules or policies.",
+      "graders": [
+        {
+          "type": "rules",
+          "must_call": [
+            "fare_rules"
+          ],
+          "must_not_call": [
+            "issue_voucher"
+          ]
+        },
+        {
+          "type": "judge"
+        }
+      ]
+    },
+    {
+      "id": "team-0104",
+      "suite": "fare_rules",
+      "hard_gate": false,
+      "shape": " rules inquiry for goodwill eligibility",
+      "author": "Olga Averianova",
+      "pnr": "L5GH3J",
+      "last_name": "Smith",
+      "message": "what are the goodwill policies for a diverted flight?",
+      "expect": "Use the fare_rules tool to provide information about goodwill eligibility based on the diversion. Do not make up any rules or policies.",
       "graders": [
         {
           "type": "rules",
